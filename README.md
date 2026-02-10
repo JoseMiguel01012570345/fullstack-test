@@ -29,17 +29,17 @@ npm install
 Para iniciar el servidor de desarrollo:
 
 ```bash
-npm start
+npm run start
 ```
 
 La aplicación se abrirá automáticamente en [http://localhost:3000](http://localhost:3000)
 
 ## 📦 Scripts Disponibles
 
-- `npm start` - Inicia el servidor de desarrollo
-- `npm build` - Construye la aplicación para producción
-- `npm test` - Ejecuta las pruebas
-- `npm eject` - Expone la configuración de Create React App (irreversible)
+- `npm run start` - Inicia el servidor de desarrollo
+- `npm run build` - Construye la aplicación para producción
+- `npm run test` - Ejecuta las pruebas
+- `npm run eject` - Expone la configuración de Create React App (irreversible)
 
 ## 🏗️ Estructura del Proyecto
 
