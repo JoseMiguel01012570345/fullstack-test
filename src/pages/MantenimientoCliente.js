@@ -50,6 +50,7 @@ export default function MantenimientoCliente() {
   const [saving, setSaving] = useState(false);
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
   const [imagenBase64, setImagenBase64] = useState('');
+  const [phoneErrors, setPhoneErrors] = useState({ telefonoCelular: false, otroTelefono: false });
   const [form, setForm] = useState({
     nombre: '',
     apellidos: '',
@@ -63,6 +64,12 @@ export default function MantenimientoCliente() {
     resenaPersonal: '',
     interesFK: '',
   });
+
+  const validatePhoneNumber = (value) => {
+    if (!value) return false;
+    const digits = String(value).replace(/\D/g, '');
+    return digits.length >= 7 && digits.length <= 15;
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -127,14 +134,15 @@ export default function MantenimientoCliente() {
 
   const handleChange = (field) => (e) => {
     let isValid = true
-    if(field == 'fNacimiento' && e.target.value && form.fAfiliacion){
+    if(field === 'fNacimiento' && e.target.value && form.fAfiliacion){
       isValid = validateDates(e, field)
     }
-    if(field == 'fAfiliacion' && e.target.value && form.fNacimiento){
+    if(field === 'fAfiliacion' && e.target.value && form.fNacimiento){
       isValid = validateDates(e, field)
     }
-    if(isValid)
-      setForm((prev) => ({ ...prev, [field]: e.target.value }));
+    if(isValid){
+        setForm((prev) => ({ ...prev, [field]: e.target.value }));
+      }
   };
 
   const handleImageChange = (e) => {
@@ -179,6 +187,16 @@ export default function MantenimientoCliente() {
       setSnackbar({
         open: true,
         message: 'Todos los campos obligatorios deben estar completos.',
+        severity: 'warning',
+      });
+      return;
+    }
+
+    // Validar formatos de teléfono antes de continuar
+    if (!validatePhoneNumber(telefonoCelular) || !validatePhoneNumber(otroTelefono)) {
+      setSnackbar({
+        open: true,
+        message: 'Ingrese números de teléfono válidos.',
         severity: 'warning',
       });
       return;
