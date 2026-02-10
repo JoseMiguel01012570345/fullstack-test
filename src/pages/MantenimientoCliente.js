@@ -274,6 +274,7 @@ export default function MantenimientoCliente() {
                     variant="contained"
                     startIcon={<SaveIcon />}
                     disabled={saving}
+                    onClick={(e) => handleSubmit(e)}
                   >
                     Guardar
                   </Button>
